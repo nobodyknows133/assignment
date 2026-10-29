@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: checkout
+      POSTGRES_USER: checkout
+      POSTGRES_PASSWORD: checkout
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U checkout -d checkout"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - checkout-db:/var/lib/postgresql/data
+
+volumes:
+  checkout-db:
